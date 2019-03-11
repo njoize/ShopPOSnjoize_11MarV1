@@ -279,12 +279,17 @@ public class FoodFragment extends Fragment {
             recyclerView.setLayoutManager(linearLayoutManager);
 
             OrderAdapter orderAdapter = new OrderAdapter(getActivity(), nameFoodStringArrayList, amounStringArrayList,
-                    priceSumStringArrayList, new OnClickItem() {
+                    priceSumStringArrayList, new OnClickImage() {
                 @Override
-                public void onClickItem(View view, int positions) {
-                    increaseOrDecrease(idSQLiteStringArrayList.get(positions));
+                public void onClickImage(View view, int position, boolean status) {
+                    Log.d("11MarV1", "position = " + position + " Status" + status);
+
+                    toolIncDec(idSQLiteStringArrayList.get(position),status);
+
                 }
             });
+
+//            increaseOrDecrease(idSQLiteStringArrayList.get(positions));
 
             recyclerView.setAdapter(orderAdapter);
 

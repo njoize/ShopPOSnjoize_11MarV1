@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -14,15 +15,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     private Context context;
     private ArrayList<String> nameFoodStringArrayList, amountStringArrayList, priceStringArrayList;
-    private OnClickItem onClickItem;
+    private OnClickImage onClickImage;
     private LayoutInflater layoutInflater;
 
-    public OrderAdapter(Context context, ArrayList<String> nameFoodStringArrayList, ArrayList<String> amountStringArrayList, ArrayList<String> priceStringArrayList, OnClickItem onClickItem) {
+    public OrderAdapter(Context context, ArrayList<String> nameFoodStringArrayList, ArrayList<String> amountStringArrayList, ArrayList<String> priceStringArrayList, OnClickImage onClickImage) {
         this.layoutInflater = LayoutInflater.from(context);
         this.nameFoodStringArrayList = nameFoodStringArrayList;
         this.amountStringArrayList = amountStringArrayList;
         this.priceStringArrayList = priceStringArrayList;
-        this.onClickItem = onClickItem;
+        this.onClickImage = onClickImage;
     }
 
     @NonNull
@@ -46,10 +47,24 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         orderViewHolder.amounTextView.setText(amount);
         orderViewHolder.priceTextView.setText(price);
 
-        orderViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//        orderViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onClickItem.onClickItem(v, orderViewHolder.getAdapterPosition());
+//            }
+//        });
+
+        orderViewHolder.decImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickItem.onClickItem(v, orderViewHolder.getAdapterPosition());
+                onClickImage.onClickImage(v, orderViewHolder.getAdapterPosition(), false);
+            }
+        });
+
+        orderViewHolder.incImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickImage.onClickImage(v, orderViewHolder.getAdapterPosition(), true);
             }
         });
 
@@ -63,6 +78,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public class OrderViewHolder extends RecyclerView.ViewHolder {
 
         private TextView nameFoodTextView, amounTextView, priceTextView;
+        private ImageView decImageView, incImageView;
+
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +87,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             nameFoodTextView = itemView.findViewById(R.id.txtNameFood);
             amounTextView = itemView.findViewById(R.id.txtAmount);
             priceTextView = itemView.findViewById(R.id.txtPrice);
+            decImageView = itemView.findViewById(R.id.imvDecrease);
+            incImageView = itemView.findViewById(R.id.imvIncrease);
 
         }
     }

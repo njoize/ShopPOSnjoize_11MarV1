@@ -46,7 +46,7 @@ public class BillDetailFragment extends Fragment {
     private Button button, printAgainButton;
     private boolean buttonBoolean = true; // true ==> กำลังเชือมต่อPrinter
     private int anInt = 0;
-    private int total;
+    private int total, myTotal;
 
     private ArrayList<String> nameStringArrayList, numStringArrayList, priceStringArrayList;
 
@@ -214,6 +214,9 @@ public class BillDetailFragment extends Fragment {
                         final TextView titleTextView = view.findViewById(R.id.txtTitle);
                         TextView paymentTextView = view.findViewById(R.id.txtPayment);
                         paymentTextView.setText("Payment = " + Integer.toString(total) + " BHT.");
+
+
+                        final int myTotal = total;
                         final String prefix = "Change = ";
 
 //                    titleTextView.setText(prefix + alertCalculate(total) + "BHT.");
@@ -228,6 +231,16 @@ public class BillDetailFragment extends Fragment {
                         final EditText creditEditText = view.findViewById(R.id.edtCredit);
                         final String moneyCreditString = creditEditText.getText().toString().trim();
 
+
+                        EditText couponEditText = view.findViewById(R.id.edtCoupon);
+                        final String moneyCouponString = couponEditText.getText().toString().trim();
+
+
+                        EditText discountEditText = view.findViewById(R.id.edtDiscount);
+                        final String discountString = discountEditText.getText().toString().trim();
+
+
+//                        For Cash
                         cashEditText.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -247,7 +260,7 @@ public class BillDetailFragment extends Fragment {
                         });
 
 
-
+//                        For Credit
                         creditEditText.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -266,14 +279,23 @@ public class BillDetailFragment extends Fragment {
                         });
 
 
+//                        For Coupon
+                        couponEditText.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                        EditText couponEditText = view.findViewById(R.id.edtCoupon);
-                        final String moneyCouponString = couponEditText.getText().toString().trim();
+                            }
 
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                        EditText discountEditText = view.findViewById(R.id.edtDiscount);
-                        final String discountString = discountEditText.getText().toString().trim();
+                            }
 
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
 
 
                         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -342,6 +364,10 @@ public class BillDetailFragment extends Fragment {
         }
 
         int answerInt = moneyInt - total;
+
+        if (answerInt <= 0) {
+            myTotal = total - moneyInt;
+        }
 
         return "Change = " + Integer.toString(answerInt) + " BHT.";
     }
@@ -726,43 +752,37 @@ public class BillDetailFragment extends Fragment {
         Log.d(tag, "Payback ==> " + payBackCustomer);
 
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setTitle("PayBack").setMessage("Your PayBack Money = " + Integer.toString(payBackCustomer)).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-
-                try {
+        try {
 
 //                    Upload Data to Server
-                    String discount = discountString;
+            String discount = discountString;
 
-                    String mid;
-                    if (midString != null && !midString.isEmpty() && !midString.equals("null")) {
-                        mid = midString;
-                    } else {
-                        mid = "0";
-                    }
-
-                    String oid = idBillString;
-                    String tid = tidString;
-                    String user = nameString;
-                    String payment = statusCash; // ส่งไปเป็น 0,1 ต้องไปปรับ Database
-
-                    PaybackThread paybackThread = new PaybackThread(getActivity());
-                    paybackThread.execute(oid, tid, user, payment, mid, discount, myConstant.getUrlPaymentOrder());
-
-                    String result = paybackThread.get();
-
-
-                    getActivity().finish();
-                    dialog.dismiss();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
+            String mid;
+            if (midString != null && !midString.isEmpty() && !midString.equals("null")) {
+                mid = midString;
+            } else {
+                mid = "0";
             }
-        }).show();
+
+            String oid = idBillString;
+            String tid = tidString;
+            String user = nameString;
+            String payment = statusCash; // ส่งไปเป็น 0,1 ต้องไปปรับ Database
+
+            PaybackThread paybackThread = new PaybackThread(getActivity());
+            paybackThread.execute(oid, tid, user, payment, mid, discount, myConstant.getUrlPaymentOrder());
+
+            String result = paybackThread.get();
+
+
+//            getActivity().finish();
+            Intent intent = new Intent(getActivity(), ServiceActivity.class);
+            getActivity().finish();
+            startActivity(intent);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }

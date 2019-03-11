@@ -21,11 +21,36 @@
         android:textSize="@dimen/h2"
         android:textStyle="bold" />
 
+    <EditText
+        android:id="@+id/edtDiscount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="Discount"
+        android:inputType="number" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:orientation="vertical">
+
+
+        <CheckBox
+            android:id="@+id/chbCoupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coupon" />
+
+        <EditText
+            android:id="@+id/edtCoupon"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Amount Coupon THB"
+            android:inputType="number" />
 
         <CheckBox
             android:id="@+id/chbCash"
@@ -57,29 +82,6 @@
             android:hint="Amount Credit THB"
             android:inputType="number" />
 
-        <CheckBox
-            android:id="@+id/chbCoupon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Coupon" />
-
-        <EditText
-            android:id="@+id/edtCoupon"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="Amount Coupon THB"
-            android:inputType="number" />
-
-        <EditText
-            android:id="@+id/edtDiscount"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="Discount"
-            android:inputType="number" />
 
     </LinearLayout>
 
