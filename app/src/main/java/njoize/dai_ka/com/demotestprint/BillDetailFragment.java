@@ -192,71 +192,107 @@ public class BillDetailFragment extends Fragment {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("11MarV1", "You Click กำลังเชื่อมต่อปรินเตอร์");
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                    alertDialogBuilder.setTitle("Choose Payment");
+                    try {
 
-                    LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-                    final View view = layoutInflater.inflate(R.layout.alertdialog_payment, null);
-                    alertDialogBuilder.setView(view);
+                        Log.d("11MarV1", "You Click กำลังเชื่อมต่อปรินเตอร์");
 
-                    alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                        alertDialogBuilder.setTitle("Choose Payment");
 
-                            final TextView titleTextView = view.findViewById(R.id.txtTitle);
+                        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+                        final View view = layoutInflater.inflate(R.layout.alertdialog_payment, null);
+                        alertDialogBuilder.setView(view);
 
-                            CheckBox cashCheckBox = view.findViewById(R.id.chbCash);
-                            CheckBox creditCheckBox = view.findViewById(R.id.chbCredit);
-                            CheckBox couponCheckBox = view.findViewById(R.id.chbCoupon);
+                        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
 
-                            EditText cashEditText = view.findViewById(R.id.edtMoneyCash);
-                            String moneyCashString = cashEditText.getText().toString().trim();
+                        final TextView titleTextView = view.findViewById(R.id.txtTitle);
+                        TextView paymentTextView = view.findViewById(R.id.txtPayment);
+                        paymentTextView.setText("Payment = " + Integer.toString(total) + " BHT.");
+                        final String prefix = "Change = ";
 
-                            cashEditText.addTextChangedListener(new TextWatcher() {
-                                @Override
-                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                    titleTextView.setText(prefix + alertCalculate(total) + "BHT.");
 
-                                }
+                        final CheckBox cashCheckBox = view.findViewById(R.id.chbCash);
+                        final CheckBox creditCheckBox = view.findViewById(R.id.chbCredit);
+                        final CheckBox couponCheckBox = view.findViewById(R.id.chbCoupon);
 
-                                @Override
-                                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                    titleTextView.setText(s);
-                                    Log.d("11MarV1", "s ==>" + s);
-                                }
+                        final EditText cashEditText = view.findViewById(R.id.edtMoneyCash);
+                        final String moneyCashString = cashEditText.getText().toString().trim();
 
-                                @Override
-                                public void afterTextChanged(Editable s) {
+                        final EditText creditEditText = view.findViewById(R.id.edtCredit);
+                        final String moneyCreditString = creditEditText.getText().toString().trim();
 
-                                }
-                            });
+                        cashEditText.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                            EditText creditEditText = view.findViewById(R.id.edtCredit);
-                            String moneyCreditString = creditEditText.getText().toString().trim();
+                            }
 
-                            EditText couponEditText = view.findViewById(R.id.edtCoupon);
-                            String moneyCouponString = couponEditText.getText().toString().trim();
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                titleTextView.setText(alertCalculate(s.toString()));
+                                creditEditText.setText(showChangeMoney(s.toString()));
+                            }
 
+                            @Override
+                            public void afterTextChanged(Editable s) {
 
-                            EditText discountEditText = view.findViewById(R.id.edtDiscount);
-                            String discountString = discountEditText.getText().toString().trim();
+                            }
+                        });
 
 
-                            uploadToServer(cashCheckBox.isChecked(), creditCheckBox.isChecked(), couponCheckBox.isChecked(),
-                                    moneyCashString, moneyCreditString, moneyCouponString, discountString);
+
+                        creditEditText.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+
+                            }
+                        });
 
 
-                        }
-                    });
-                    alertDialogBuilder.show();
-                }
+
+                        EditText couponEditText = view.findViewById(R.id.edtCoupon);
+                        final String moneyCouponString = couponEditText.getText().toString().trim();
+
+
+                        EditText discountEditText = view.findViewById(R.id.edtDiscount);
+                        final String discountString = discountEditText.getText().toString().trim();
+
+
+
+                        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                uploadToServer(cashCheckBox.isChecked(), creditCheckBox.isChecked(), couponCheckBox.isChecked(),
+                                        moneyCashString, moneyCreditString, moneyCouponString, discountString);
+
+
+                            }
+                        });
+                        alertDialogBuilder.show();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } // onClick
             });
 
         }   // if
@@ -271,6 +307,43 @@ public class BillDetailFragment extends Fragment {
             }
         });
 
+    }
+
+    private String showChangeMoney(String cashString) {
+
+        int cashInt = 0;
+        String result = "";
+
+        if (cashString.length() == 0) {
+            cashInt = 0;
+        } else {
+            cashInt = Integer.parseInt(cashString);
+        }
+
+        int answer = total - cashInt;
+
+        if (answer <= 0) {
+            result = "";
+        } else {
+            result = Integer.toString(answer);
+        }
+
+        return result;
+    }
+
+    private String alertCalculate(String moneyString) {
+
+        int moneyInt = 0;
+
+        if (moneyString.length() == 0) {
+            moneyInt = 0;
+        } else {
+            moneyInt = Integer.parseInt(moneyString);
+        }
+
+        int answerInt = moneyInt - total;
+
+        return "Change = " + Integer.toString(answerInt) + " BHT.";
     }
 
     private void showText() {

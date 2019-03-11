@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="16dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txtPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ชำระเงิน"
+        android:textSize="@dimen/h2"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtTitle"
@@ -14,10 +22,10 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_margin="20dp"
-        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
         <CheckBox
             android:id="@+id/chbCash"
@@ -26,13 +34,13 @@
             android:text="Cash" />
 
         <EditText
-            android:inputType="number"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
             android:id="@+id/edtMoneyCash"
-            android:hint="Amount Money THB"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Amount Money THB"
+            android:inputType="number" />
 
         <CheckBox
             android:id="@+id/chbCredit"
@@ -41,13 +49,13 @@
             android:text="Credit Card" />
 
         <EditText
-            android:inputType="number"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
             android:id="@+id/edtCredit"
-            android:hint="Amount Credit THB"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Amount Credit THB"
+            android:inputType="number" />
 
         <CheckBox
             android:id="@+id/chbCoupon"
@@ -56,27 +64,24 @@
             android:text="Coupon" />
 
         <EditText
-            android:inputType="number"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
             android:id="@+id/edtCoupon"
-            android:hint="Amount Coupon THB"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Amount Coupon THB"
+            android:inputType="number" />
 
         <EditText
-            android:inputType="number"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
             android:id="@+id/edtDiscount"
-            android:hint="Discount"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Discount"
+            android:inputType="number" />
 
     </LinearLayout>
-
-
-
 
 
 </LinearLayout>
