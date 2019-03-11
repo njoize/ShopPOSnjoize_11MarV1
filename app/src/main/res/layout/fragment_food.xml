@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FoodFragment">
+
+    <!--Content Bill-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!--Head Title-->
+        <LinearLayout
+            android:id="@+id/layoutHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#cfcfcf"
+            android:paddingTop="5dp">
+
+            <!--Status-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp">
+
+                <!--Desk-->
+                <TextView
+                    android:id="@+id/txtDesk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="text" />
+
+                <!--Zone-->
+                <TextView
+                    android:id="@+id/txtZone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="text" />
+
+                <!--AmountUser-->
+                <TextView
+                    android:id="@+id/txtAmountUser"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="text" />
+
+                <!--Total Bill-->
+                <TextView
+                    android:id="@+id/txtTotalBill"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="text" />
+
+            </LinearLayout>
+
+            <!--Title Column-->
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!--NameFood-->
+                <TextView
+                    android:id="@+id/txtNameFood"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="รายการ"
+                    android:background="#efefef"
+                    android:textSize="@dimen/h2" />
+
+
+                <TextView
+                    android:textSize="@dimen/h2"
+                    android:layout_weight="0.01"
+                    android:layout_width="0dp"
+                    android:background="#ffffff"
+                    android:layout_height="wrap_content" />
+
+                <!--Amount-->
+                <TextView
+                    android:id="@+id/txtAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="จำนวน"
+                    android:background="#efefef"
+                    android:textSize="@dimen/h2" />
+
+                <TextView
+                    android:textSize="@dimen/h2"
+                    android:layout_weight="0.01"
+                    android:layout_width="0dp"
+                    android:background="#ffffff"
+                    android:layout_height="wrap_content" />
+
+                <!--Price-->
+                <TextView
+                    android:id="@+id/txtPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="ราคา"
+                    android:background="#efefef"
+                    android:textSize="@dimen/h2" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--Content-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerOrder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/layoutTotal"
+            android:layout_below="@+id/layoutHead" />
+
+
+        <!--Total-->
+        <FrameLayout
+            android:id="@+id/layoutTotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--Show Total-->
+                <TextView
+                    android:layout_marginRight="16dp"
+                    android:id="@+id/txtTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="Total = 888"
+                    android:textSize="@dimen/h2"
+                    android:textStyle="bold" />
+
+                <!--Show Control-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnCancle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Cancle" />
+
+                    <Button
+                        android:id="@+id/btnOrder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Order" />
+
+                    <Button
+                        android:visibility="gone"
+                        android:id="@+id/btnPayment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Payment" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <!--Content Menu-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!--category-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+        <!--Menu-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerFood"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

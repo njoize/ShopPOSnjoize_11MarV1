@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Demo Test Print</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="open">Open Drawer</string>
+    <string name="close">Close Drawer</string>
+    <string name="customeramount">จำนวนลูกค้า</string>
+    <string name="totalbill">รวมบิล</string>
+    <string name="nontotalbill">ไม่รวมบิล</string>
+
+</resources>

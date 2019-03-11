@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BillDetailFragment">
+
+    <!--Toolbar-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarDetail"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!--Top-->
+    <RelativeLayout
+        android:id="@+id/layoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbarDetail">
+
+        <TextView
+            android:id="@+id/txtLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title Left"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Title Right"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <!--Middle-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewBillDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/txtTotal"
+        android:layout_below="@+id/layoutTop" />
+
+
+    <TextView
+        android:id="@+id/txtMember"
+        android:textSize="@dimen/h2"
+        android:layout_above="@+id/txtTotal"
+        android:layout_alignParentRight="true"
+        android:text="Not Selected Member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--Base-->
+    <TextView
+        android:id="@+id/txtTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearBotton"
+        android:layout_alignParentRight="true"
+        android:text="Total = 1234"
+        android:textSize="@dimen/h1"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/linearBotton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <!--Button Top-->
+        <LinearLayout
+            android:id="@+id/buttonBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="สั่งเพิ่ม/แก้ไข" />
+
+            <Button
+                android:id="@+id/btnSep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="แยกบิล" />
+
+            <Button
+                android:id="@+id/btnPaymentAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Print Again" />
+
+            <Button
+                android:id="@+id/btnSelectMember"
+                android:text="Select Member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!--Button Botton-->
+
+
+
+        <Button
+            android:id="@+id/btnPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="กำลังเชื่อมต่อปริ้นเตอร์" />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
