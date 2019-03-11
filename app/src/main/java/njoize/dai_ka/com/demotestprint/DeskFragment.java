@@ -347,11 +347,28 @@ public class DeskFragment extends Fragment implements View.OnClickListener {
 
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
 
-//                Test
-                for (int i = 0; i < strings.length; i += 1) {
-                    intent.putExtra(strings[i], "0");
-                }
-                intent.putExtra("tid", tidStringArrayList.get(position));
+                String tid = tidStringArrayList.get(position);
+
+                GetDtailBillWhereID getDtailBillWhereID = new GetDtailBillWhereID(getActivity());
+                getDtailBillWhereID.execute(tid, myConstant.getUrlGetOrderWhereTID());
+
+                String resultJSoN = getDtailBillWhereID.get();
+
+                Log.d("11MarV2", "TID ==> " + tid);
+                Log.d("11MarV2", "resultJSoN ==> " + resultJSoN);
+
+                JSONArray jsonArray = new JSONArray(resultJSoN);
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
+//
+                intent.putExtra("idBill", jsonObject.getString("id"));
+                intent.putExtra("Time", jsonObject.getString("date"));
+                intent.putExtra("cnum", jsonObject.getString("cnum"));
+                intent.putExtra("type", jsonObject.getString("type"));
+                intent.putExtra("name", jsonObject.getString("name"));
+                intent.putExtra("Zone", jsonObject.getString("tzname"));
+                intent.putExtra("Desk", jsonObject.getString("tname"));
+//                intent.putExtra("tid", jsonObject.getString("tid"));
+                intent.putExtra("tid", tid);
                 startActivity(intent);
 
             } catch (Exception e) {

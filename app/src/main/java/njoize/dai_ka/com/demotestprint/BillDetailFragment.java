@@ -15,6 +15,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -121,6 +123,9 @@ public class BillDetailFragment extends Fragment {
 
 //        Show Status
         boolean status = getArguments().getBoolean("Status");
+
+        Log.d("11MarV1", "Status ==> " + status);
+
         if (status) {
             TextView textView = getView().findViewById(R.id.txtMember);
             textView.setText("mid ==> " + midString);
@@ -171,7 +176,10 @@ public class BillDetailFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                getActivity().finish();
+                Intent intent = new Intent(getActivity(), ServiceActivity.class);
                 getActivity().finish();
+                startActivity(intent);
             }
         });
     }
@@ -203,12 +211,32 @@ public class BillDetailFragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
+                            final TextView titleTextView = view.findViewById(R.id.txtTitle);
+
                             CheckBox cashCheckBox = view.findViewById(R.id.chbCash);
                             CheckBox creditCheckBox = view.findViewById(R.id.chbCredit);
                             CheckBox couponCheckBox = view.findViewById(R.id.chbCoupon);
 
                             EditText cashEditText = view.findViewById(R.id.edtMoneyCash);
                             String moneyCashString = cashEditText.getText().toString().trim();
+
+                            cashEditText.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                    titleTextView.setText(s);
+                                    Log.d("11MarV1", "s ==>" + s);
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable s) {
+
+                                }
+                            });
 
                             EditText creditEditText = view.findViewById(R.id.edtCredit);
                             String moneyCreditString = creditEditText.getText().toString().trim();
