@@ -3,6 +3,7 @@ package njoize.dai_ka.com.demotestprint;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
     private MyConstant myConstant;
     private ArrayList<String> nameMemberStringArrayList;
     ArrayList<NameMemberModel> nameMemberModelArrayList = new ArrayList<NameMemberModel>();
+    private String searchBar;
     private SearchView searchView;
     private MemberListViewAdapter memberListViewAdapter;
     private ArrayList<String> idStringArrayList;
@@ -96,6 +98,21 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.d("28FebV1", "click ListView");
                     getActivity().getSupportFragmentManager().popBackStack();
+                }
+            });
+
+//            https://stackoverflow.com/questions/17670685/custom-searchview-whole-clickable-in-android/33623277#33623277
+//            searchView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    searchView.setIconified(false);
+//                }
+//            });
+
+            getView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchView.setIconified(false);
                 }
             });
 

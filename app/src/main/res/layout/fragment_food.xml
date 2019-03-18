@@ -23,6 +23,7 @@
 
             <!--Status-->
             <LinearLayout
+                android:layout_marginHorizontal="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -54,6 +55,7 @@
 
                 <!--Total Bill-->
                 <TextView
+                    android:gravity="right"
                     android:id="@+id/txtTotalBill"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -74,8 +76,8 @@
                     android:id="@+id/txtNameFood"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="รายการ"
+                    android:layout_weight="10"
+                    android:text=" รายการ"
                     android:background="#efefef"
                     android:textSize="@dimen/h2" />
 
@@ -92,7 +94,7 @@
                     android:id="@+id/txtAmount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="6"
                     android:gravity="center_horizontal"
                     android:text="จำนวน"
                     android:background="#efefef"
@@ -110,9 +112,9 @@
                     android:id="@+id/txtPrice"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="ราคา"
+                    android:layout_weight="3"
+                    android:gravity="right"
+                    android:text="ราคา "
                     android:background="#efefef"
                     android:textSize="@dimen/h2" />
 
@@ -143,7 +145,8 @@
 
                 <!--Show Total-->
                 <TextView
-                    android:layout_marginRight="16dp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginRight="5dp"
                     android:id="@+id/txtTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -188,6 +191,12 @@
 
     </RelativeLayout>
 
+    <View
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#b2b2b2" />
+
     <!--Content Menu-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -212,7 +221,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3">
+            android:layout_weight="5">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerFood"

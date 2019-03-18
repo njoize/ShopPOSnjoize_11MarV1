@@ -15,12 +15,15 @@
 
     <!--Top-->
     <RelativeLayout
+        android:background="#f8f8f8"
         android:id="@+id/layoutTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarDetail">
 
         <TextView
+            android:layout_marginVertical="10dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/txtLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,6 +32,9 @@
             android:textStyle="bold" />
 
         <TextView
+            android:gravity="right"
+            android:layout_marginVertical="10dp"
+            android:layout_marginRight="5dp"
             android:id="@+id/txtRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +43,14 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
+
     </RelativeLayout>
+
+    <View
+        android:layout_above="@+id/recyclerViewBillDetail"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#b2b2b2" />
 
 
     <!--Middle-->
@@ -45,11 +58,16 @@
         android:id="@+id/recyclerViewBillDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/txtTotal"
+        android:layout_above="@+id/txtMember"
         android:layout_below="@+id/layoutTop" />
 
 
+
+    <!--Base-->
+
+
     <TextView
+        android:layout_marginRight="5dp"
         android:id="@+id/txtMember"
         android:textSize="@dimen/h2"
         android:layout_above="@+id/txtTotal"
@@ -58,15 +76,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <!--Base-->
     <TextView
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorAccent"
         android:id="@+id/txtTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearBotton"
         android:layout_alignParentRight="true"
         android:text="Total = 1234"
-        android:textSize="@dimen/h1"
+        android:textSize="@dimen/h2"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -85,25 +104,30 @@
 
             <Button
                 android:id="@+id/btnEdit"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="สั่งเพิ่ม/แก้ไข" />
+                android:text="สั่งเพิ่ม" />
 
             <Button
                 android:id="@+id/btnSep"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="แยกบิล" />
 
             <Button
+                android:visibility="gone"
+                android:layout_weight="1"
                 android:id="@+id/btnPaymentAgain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Print Again" />
 
             <Button
+                android:layout_weight="1"
                 android:id="@+id/btnSelectMember"
-                android:text="Select Member"
+                android:text="สมาชิก"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

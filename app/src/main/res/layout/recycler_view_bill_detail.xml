@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="text"
-            android:textSize="@dimen/h2" />
+            android:textSize="@dimen/h3" />
 
         <TextView
             android:visibility="gone"
@@ -25,14 +25,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="text"
-            android:textSize="@dimen/h2" />
+            android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/txtAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="text"
-            android:textSize="@dimen/h2" />
+            android:textSize="@dimen/h3" />
 
         <TextView
             android:visibility="gone"
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="text"
-            android:textSize="@dimen/h2" />
+            android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/txtPrice"
@@ -52,5 +52,11 @@
             android:textSize="@dimen/h2" />
 
     </LinearLayout>
+
+    <View
+    android:layout_marginHorizontal="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/colorLine" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,8 +39,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         String categoryString = categoryStringArrayList.get(i);
 
-        categoryViewHolder.textView.setText(categoryString);
-        categoryViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        categoryViewHolder.button.setText(categoryString);
+        categoryViewHolder.button.setOnClickListener(new View.OnClickListener() {
+//        categoryViewHolder.textView.setText(categoryString);
+//        categoryViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickItem.onClickItem(v, categoryViewHolder.getAdapterPosition());
@@ -55,12 +58,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView;
+        Button button;
+//        TextView textView;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textView = itemView.findViewById(R.id.txtcategory);
+            button = itemView.findViewById(R.id.btnCategory);
+//            textView = itemView.findViewById(R.id.txtcategory);
 
         }
     }

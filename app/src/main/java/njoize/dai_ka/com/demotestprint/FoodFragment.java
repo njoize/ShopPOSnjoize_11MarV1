@@ -295,7 +295,8 @@ public class FoodFragment extends Fragment {
 
 //            Show AmountPrice
             TextView textView = getView().findViewById(R.id.txtTotal);
-            textView.setText("รวมทั้งสิ้น : " + Integer.toString(totalAInt) + " บาท");
+            textView.setText("รวมทั้งสิ้น :   " + Integer.toString(totalAInt));
+//            textView.setText("รวมทั้งสิ้น : " + Integer.toString(totalAInt) + " บาท");
 
 
         } catch (Exception e) {

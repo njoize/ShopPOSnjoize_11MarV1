@@ -4,7 +4,7 @@
     <dimen name="h1">24sp</dimen>
     <dimen name="h2">18sp</dimen>
     <dimen name="h3">12sp</dimen>
-    <dimen name="icon">90dp</dimen>
+    <dimen name="icon">65dp</dimen>
     <dimen name="tite">20dp</dimen>
     <dimen name="tite0">0dp</dimen>
 </resources>

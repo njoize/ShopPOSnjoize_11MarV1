@@ -246,9 +246,9 @@ public class ServiceActivity extends AppCompatActivity {
     private void createToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbarService);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setLogo(R.drawable.ic_action_exit);
-        // getSupportActionBar().setTitle(myConstant.getNameShopString());
-        getSupportActionBar().setSubtitle("Login by : " + nameString);
+        getSupportActionBar().setLogo(R.drawable.ic_action_logo);
+        getSupportActionBar().setTitle(myConstant.getNameShopToolbar());
+        getSupportActionBar().setSubtitle("   Login by : " + nameString);
 
         drawerLayout = findViewById(R.id.layoutDrawer);
         actionBarDrawerToggle = new ActionBarDrawerToggle(

@@ -32,13 +32,14 @@ public class MyConstant {
     private String urlGetUserWhereName = "http://www.brainwakecafe.com/android/getUserWhereName.php";
 
     private String nameShopString = "Name Shop";
+    private String nameShopToolbar = "Name Shop";
 
-    private String[] titleTabStrings = new String[]{"Bill", "Desk", "Food", "Member"};
+    private String[] titleTabStrings = new String[]{"Bill", "Table", "Food", "Member"};
 //    private String[] titleTabStrings = new String[]{"Bill", "Desk", "Food", "Noti"};
 
     private String[] billTitleStrings = new String[]{"ยังไม่ชำระ", "สำเร็จ", "ยกเลิก"};
 
-    private int[] iconBillTitleInts = new int[]{R.drawable.ic_action_bill, R.drawable.ic_action_desk, R.drawable.ic_action_food, R.drawable.ic_action_noti};
+    private int[] iconBillTitleInts = new int[]{R.drawable.ic_action_bill, R.drawable.ic_action_table, R.drawable.ic_action_food, R.drawable.ic_action_member};
 
     private String urlTestReadAllData = "https://jsonplaceholder.typicode.com/users";
 
@@ -68,6 +69,10 @@ public class MyConstant {
 
 //    Getter
 
+
+    public String getNameShopToolbar() {
+        return nameShopToolbar;
+    }
 
     public String getUrlGetOrderWhereTID() {
         return urlGetOrderWhereTID;

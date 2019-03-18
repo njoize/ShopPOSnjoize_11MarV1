@@ -17,58 +17,62 @@
 
         <!--NameFood-->
         <TextView
+            android:layout_marginLeft="5dp"
             android:id="@+id/txtNameFood"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="10"
             android:text="NameFood"
             android:textSize="@dimen/h2" />
 
-        <TextView
+        <!--<TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.01"
             android:background="#ffffff"
-            android:textSize="@dimen/h2" />
+            android:textSize="@dimen/h2" />-->
 
 
         <ImageView
+            android:layout_weight="1"
             android:id="@+id/imvDecrease"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_noti" />
+            android:src="@drawable/ic_action_decrease" />
 
         <!--Amount-->
         <TextView
             android:id="@+id/txtAmount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="10"
             android:textSize="@dimen/h2" />
 
         <ImageView
             android:id="@+id/imvIncrease"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_arrow" />
+            android:src="@drawable/ic_action_increase" />
 
-        <TextView
+        <!--<TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.01"
             android:background="#ffffff"
-            android:textSize="@dimen/h2" />
+            android:textSize="@dimen/h2" />-->
 
         <!--Price-->
 
         <TextView
+            android:layout_marginRight="5dp"
+            android:gravity="right"
             android:id="@+id/txtPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:layout_weight="3"
             android:text="888"
             android:textSize="@dimen/h2" />
     </LinearLayout>

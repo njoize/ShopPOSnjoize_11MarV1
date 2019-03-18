@@ -13,6 +13,11 @@
         android:layout_height="wrap_content"/>
 
 
+    <View
+        android:background="@color/colorBG"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"/>
+
     <!--Recycler View-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewBill"

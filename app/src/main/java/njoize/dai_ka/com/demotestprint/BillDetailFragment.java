@@ -376,8 +376,8 @@ public class BillDetailFragment extends Fragment {
         TextView leftTextView = getView().findViewById(R.id.txtLeft);
         TextView rightTextView = getView().findViewById(R.id.txtRight);
 
-        leftTextView.setText(timeString + " ลูกค้า " + cnumString + " คน " + typeString + " โดย " + nameString);
-        rightTextView.setText(zoneString + " " + "โต๊ะ " + deskString);
+        leftTextView.setText(timeString + " ลูกค้า " + cnumString + " คน " + typeString + "\nโดย " + nameString);
+        rightTextView.setText(zoneString + "\nโต๊ะ " + deskString);
 
 
     }
@@ -426,7 +426,7 @@ public class BillDetailFragment extends Fragment {
             }
 
             TextView textView = getView().findViewById(R.id.txtTotal);
-            textView.setText("ยอดสุทธิ " + Integer.toString(total) + " บาท");
+            textView.setText("รวมทั้งสิ้น :   " + Integer.toString(total));
 
 
         } catch (Exception e) {

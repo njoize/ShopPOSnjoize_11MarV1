@@ -4,7 +4,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/btnCategory"
+        android:text="Category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--<TextView
         android:id="@+id/txtcategory"
         android:textColor="#ffffff"
         android:background="@drawable/cover"
@@ -12,6 +20,6 @@
         android:textSize="@dimen/h2"
         android:text="Category"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
 
 </LinearLayout>
