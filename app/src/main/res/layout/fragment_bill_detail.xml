@@ -65,26 +65,61 @@
 
     <!--Base-->
 
+    <TextView
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/txtMember"
+        android:textSize="@dimen/h3"
+        android:layout_above="@+id/txtTotal"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
 
     <TextView
-        android:layout_marginRight="5dp"
-        android:id="@+id/txtMember"
+        android:id="@+id/txtDiscountText"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginRight="60dp"
         android:textSize="@dimen/h2"
         android:layout_above="@+id/txtTotal"
         android:layout_alignParentRight="true"
-        android:text="Not Selected Member"
+        android:text=""
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
 
     <TextView
-        android:layout_marginRight="5dp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginRight="10dp"
+        android:id="@+id/txtMemberDiscount"
+        android:textSize="@dimen/h2"
+        android:layout_above="@+id/txtTotal"
+        android:layout_alignParentRight="true"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
+
+    <TextView
+        android:textColor="@color/colorAccent"
+        android:layout_marginRight="60dp"
+        android:textSize="@dimen/h2"
+        android:layout_above="@+id/linearBotton"
+        android:layout_alignParentRight="true"
+        android:text="รวมทั้งสิ้น :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginRight="10dp"
         android:textColor="@color/colorAccent"
         android:id="@+id/txtTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearBotton"
         android:layout_alignParentRight="true"
-        android:text="Total = 1234"
+        android:text="1234"
         android:textSize="@dimen/h2"
         android:textStyle="bold" />
 

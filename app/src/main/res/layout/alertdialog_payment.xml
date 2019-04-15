@@ -13,22 +13,29 @@
         android:textSize="@dimen/h2"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtTitle"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type Payment"
-        android:textSize="@dimen/h2"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/edtDiscount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="Discount"
-        android:inputType="number" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ส่วนลด : "
+            android:textSize="@dimen/h2"/>
+
+        <EditText
+            android:id="@+id/edtDiscount"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Discount"
+            android:inputType="number" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -85,5 +92,14 @@
 
     </LinearLayout>
 
+
+    <TextView
+        android:textColor="@color/colorAccent"
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="เงินทอน : 0 บาท"
+        android:textSize="@dimen/h2"
+        android:textStyle="bold" />
 
 </LinearLayout>

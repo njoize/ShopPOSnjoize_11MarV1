@@ -1,6 +1,7 @@
 package njoize.dai_ka.com.demotestprint;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -97,7 +98,14 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.d("28FebV1", "click ListView");
-                    getActivity().getSupportFragmentManager().popBackStack();
+
+                    Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+                    intent.putExtra("mid", idStringArrayList.get(position));
+
+                    startActivity(intent);
+
+
+//                    getActivity().getSupportFragmentManager().popBackStack();
                 }
             });
 

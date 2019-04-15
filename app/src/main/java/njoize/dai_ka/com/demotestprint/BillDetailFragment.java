@@ -46,7 +46,7 @@ public class BillDetailFragment extends Fragment {
     private Button button, printAgainButton;
     private boolean buttonBoolean = true; // true ==> กำลังเชือมต่อPrinter
     private int anInt = 0;
-    private int total, myTotal;
+    private int total, myTotal, discount, discountp;
 
     private ArrayList<String> nameStringArrayList, numStringArrayList, priceStringArrayList;
 
@@ -121,18 +121,6 @@ public class BillDetailFragment extends Fragment {
         selectMemberController();
 
 
-//        Show Status
-        boolean status = getArguments().getBoolean("Status");
-
-        Log.d("11MarV1", "Status ==> " + status);
-
-        if (status) {
-            TextView textView = getView().findViewById(R.id.txtMember);
-            textView.setText("mid ==> " + midString);
-            Log.d("28FebV1", "mid ==> " + midString);
-        }
-
-
     } // Main Method
 
     @Override
@@ -198,7 +186,7 @@ public class BillDetailFragment extends Fragment {
                         Log.d("11MarV1", "You Click กำลังเชื่อมต่อปรินเตอร์");
 
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                        alertDialogBuilder.setTitle("Choose Payment");
+                        alertDialogBuilder.setTitle("Payment Method");
 
                         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
                         final View view = layoutInflater.inflate(R.layout.alertdialog_payment, null);
@@ -211,13 +199,14 @@ public class BillDetailFragment extends Fragment {
                             }
                         });
 
+
                         final TextView titleTextView = view.findViewById(R.id.txtTitle);
                         TextView paymentTextView = view.findViewById(R.id.txtPayment);
-                        paymentTextView.setText("Payment = " + Integer.toString(total) + " BHT.");
+                        paymentTextView.setText("ยอดชำระ : " + Integer.toString(total) + " บาท");
 
 
                         final int myTotal = total;
-                        final String prefix = "Change = ";
+                        final String prefix = "เงินทอน : ";
 
 //                    titleTextView.setText(prefix + alertCalculate(total) + "BHT.");
 
@@ -237,8 +226,29 @@ public class BillDetailFragment extends Fragment {
 
 
                         EditText discountEditText = view.findViewById(R.id.edtDiscount);
-                        final String discountString = discountEditText.getText().toString().trim();
+                        //final String discountString = discountEditText.getText().toString().trim();
+                        discountEditText.setText(Integer.toString(discount));
 
+
+//                        For Discount
+                        discountEditText.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                //String ediscount = s.toString();
+
+                                //Log.d("15MarV2", "edtDiscount ==> " + ediscount);
+
+                            }
+                        });
 
 //                        For Cash
                         cashEditText.addTextChangedListener(new TextWatcher() {
@@ -250,6 +260,7 @@ public class BillDetailFragment extends Fragment {
                             @Override
                             public void onTextChanged(CharSequence s, int start, int before, int count) {
                                 titleTextView.setText(alertCalculate(s.toString()));
+                                //creditEditText.setText(showChangeMoney(s.toString(), ediscount,  ));
                                 creditEditText.setText(showChangeMoney(s.toString()));
                             }
 
@@ -331,6 +342,7 @@ public class BillDetailFragment extends Fragment {
 
     }
 
+    //private String showChangeMoney(String cashString, discountString, couponString) {
     private String showChangeMoney(String cashString) {
 
         int cashInt = 0;
@@ -366,10 +378,11 @@ public class BillDetailFragment extends Fragment {
         int answerInt = moneyInt - total;
 
         if (answerInt <= 0) {
+            answerInt = 0;
             myTotal = total - moneyInt;
         }
 
-        return "Change = " + Integer.toString(answerInt) + " BHT.";
+        return "เงินทอน : " + Integer.toString(answerInt) + " บาท";
     }
 
     private void showText() {
@@ -425,8 +438,62 @@ public class BillDetailFragment extends Fragment {
                 total = total + Integer.parseInt(s.trim());
             }
 
+
+            //        Show Status
+            boolean status = getArguments().getBoolean("Status");
+
+            Log.d("11MarV1", "Status ==> " + status);
+
+            if (status) {
+
+
+                try {
+
+                    GetMemberWhereID getMemberWhereID = new GetMemberWhereID(getActivity());
+                    getMemberWhereID.execute(midString, myConstant.getUrlGetMemberWhereID());
+                    String jsonString2 = getMemberWhereID.get();
+                    Log.d("15MarV1", "json ==> " + jsonString2);
+
+                    JSONArray jsonArray2 = new JSONArray(jsonString2);
+                    for (int i = 0; i < jsonArray2.length(); i += 1) {
+
+                        JSONObject jsonObject = jsonArray2.getJSONObject(i);
+                        String nameJsonString = jsonObject.getString("sname");
+                        String discountJsonString = jsonObject.getString("discount");
+
+
+                        discountp = Integer.parseInt(discountJsonString);
+                        discount = total * discountp / 100;
+
+                        String discountString = Integer.toString(discount);
+
+                        TextView textView1 = getView().findViewById(R.id.txtMember);
+                        textView1.setText(nameJsonString);
+
+                        TextView textView2 = getView().findViewById(R.id.txtDiscountText);
+                        textView2.setText("ส่วนลด " + discountJsonString + "% :");
+
+                        TextView textView3 = getView().findViewById(R.id.txtMemberDiscount);
+                        textView3.setText(discountString);
+
+                        Log.d("28FebV1", "mid ==> " + midString);
+                        Log.d("15MarV2", "total ==> " + total);
+                        Log.d("15MarV2", "discount ==> " + discountp + "%");
+                        Log.d("15MarV2", "discount ==> " + discountString);
+
+
+
+                    } // for
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+//            Log.d("20FebV2", "e at createDetail ==> " + e.toString());
+                }
+
+            }
+
             TextView textView = getView().findViewById(R.id.txtTotal);
-            textView.setText("รวมทั้งสิ้น :   " + Integer.toString(total));
+            textView.setText(Integer.toString(total));
 
 
         } catch (Exception e) {

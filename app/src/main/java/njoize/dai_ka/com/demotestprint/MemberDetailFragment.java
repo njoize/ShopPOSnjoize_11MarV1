@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -42,6 +43,10 @@ public class MemberDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        Create Toolbar
+        createToolbar();
+
+
 //        Get MID
         getMID();
 
@@ -53,8 +58,28 @@ public class MemberDetailFragment extends Fragment {
 
     } // Main Method
 
+    private void createToolbar() {
+        Toolbar toolbar = getView().findViewById(R.id.toolbarMemberDetail);
+        ((MemberDetailActivity) getActivity()).setSupportActionBar(toolbar);
+        ((MemberDetailActivity) getActivity()).getSupportActionBar().setTitle("Detail");
+        ((MemberDetailActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        ((MemberDetailActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+//                Intent intent = new Intent(getActivity(), ServiceActivity.class);
+//                getActivity().finish();
+//                startActivity(intent);
+            }
+        });
+    }
+
     private void selectMemberController() {
         Button button = getView().findViewById(R.id.btnMember);
+//        if () {
+            button.setVisibility(View.GONE);
+//        }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
