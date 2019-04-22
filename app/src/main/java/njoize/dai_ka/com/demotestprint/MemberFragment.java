@@ -99,13 +99,13 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.d("28FebV1", "click ListView");
 
-                    Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
+                    /*Intent intent = new Intent(getActivity(), MemberDetailActivity.class);
                     intent.putExtra("mid", idStringArrayList.get(position));
 
-                    startActivity(intent);
+                    startActivity(intent);*/
 
 
-//                    getActivity().getSupportFragmentManager().popBackStack();
+                    getActivity().getSupportFragmentManager().popBackStack();
                 }
             });
 

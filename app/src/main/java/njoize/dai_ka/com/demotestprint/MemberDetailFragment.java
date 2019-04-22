@@ -44,7 +44,7 @@ public class MemberDetailFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 //        Create Toolbar
-        createToolbar();
+//        createToolbar();
 
 
 //        Get MID
@@ -58,7 +58,7 @@ public class MemberDetailFragment extends Fragment {
 
     } // Main Method
 
-    private void createToolbar() {
+/*    private void createToolbar() {
         Toolbar toolbar = getView().findViewById(R.id.toolbarMemberDetail);
         ((MemberDetailActivity) getActivity()).setSupportActionBar(toolbar);
         ((MemberDetailActivity) getActivity()).getSupportActionBar().setTitle("Detail");
@@ -73,13 +73,13 @@ public class MemberDetailFragment extends Fragment {
 //                startActivity(intent);
             }
         });
-    }
+    }*/
 
     private void selectMemberController() {
         Button button = getView().findViewById(R.id.btnMember);
-//        if () {
+/*//        if () {
             button.setVisibility(View.GONE);
-//        }
+//        }*/
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

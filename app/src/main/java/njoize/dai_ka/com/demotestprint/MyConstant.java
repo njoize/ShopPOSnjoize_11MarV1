@@ -32,7 +32,7 @@ public class MyConstant {
     private String urlGetUserWhereName = "http://www.brainwakecafe.com/android/getUserWhereName.php";
 
     private String nameShopString = "Name Shop";
-    private String nameShopToolbar = "Name Shop";
+    private String nameShopToolbar = "  Name Shop";
 
     private String[] titleTabStrings = new String[]{"Bill", "Table", "Food", "Member"};
 //    private String[] titleTabStrings = new String[]{"Bill", "Desk", "Food", "Noti"};

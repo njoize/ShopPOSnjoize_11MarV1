@@ -208,7 +208,7 @@ public class BillDetailFragment extends Fragment {
                         final int myTotal = total;
                         final String prefix = "เงินทอน : ";
 
-//                    titleTextView.setText(prefix + alertCalculate(total) + "BHT.");
+//                    titleTextView.setText(prefix + alertCalculate(total) + " บาท");
 
                         final CheckBox cashCheckBox = view.findViewById(R.id.chbCash);
                         final CheckBox creditCheckBox = view.findViewById(R.id.chbCredit);
