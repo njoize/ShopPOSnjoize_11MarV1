@@ -46,7 +46,7 @@ public class MemberDetailFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 //        Create Toolbar
-//        createToolbar();
+        createToolbar();
 
 
 //        Get MID
@@ -60,22 +60,19 @@ public class MemberDetailFragment extends Fragment {
 
     } // Main Method
 
-/*    private void createToolbar() {
+    private void createToolbar() {
         Toolbar toolbar = getView().findViewById(R.id.toolbarMemberDetail);
-        ((MemberDetailActivity) getActivity()).setSupportActionBar(toolbar);
-        ((MemberDetailActivity) getActivity()).getSupportActionBar().setTitle("Detail");
-        ((MemberDetailActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-        ((MemberDetailActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MemberActivity) getActivity()).setSupportActionBar(toolbar);
+        ((MemberActivity) getActivity()).getSupportActionBar().setTitle("Detail");
+        ((MemberActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        ((MemberActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
-//                Intent intent = new Intent(getActivity(), ServiceActivity.class);
-//                getActivity().finish();
-//                startActivity(intent);
             }
         });
-    }*/
+    }
 
     private void selectMemberController() {
 

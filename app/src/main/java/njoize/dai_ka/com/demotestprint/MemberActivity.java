@@ -13,6 +13,9 @@ public class MemberActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d("22AprilV1", "MemberActivity Work");
+
         setContentView(R.layout.activity_member);
 
         idString = getIntent().getStringExtra("id");
