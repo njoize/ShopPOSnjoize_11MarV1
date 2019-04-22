@@ -10,6 +10,13 @@
         android:background="@drawable/cover2"
         android:orientation="vertical">
 
+        <ImageView
+            android:visibility="gone"
+            android:src="@drawable/logo1"
+            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="120dp" />
+
         <TextView
             android:id="@+id/txtFood"
             android:layout_width="wrap_content"
