@@ -58,6 +58,8 @@ public class BillDetailFragment extends Fragment {
     private String tag = "2decV2";
     private MyConstant myConstant = new MyConstant();
 
+    private EditText couponEditText;
+
 
     public BillDetailFragment() {
         // Required empty public constructor
@@ -221,7 +223,7 @@ public class BillDetailFragment extends Fragment {
                         final String moneyCreditString = creditEditText.getText().toString().trim();
 
 
-                        EditText couponEditText = view.findViewById(R.id.edtCoupon);
+                        couponEditText = view.findViewById(R.id.edtCoupon);
                         final String moneyCouponString = couponEditText.getText().toString().trim();
 
 
@@ -345,6 +347,7 @@ public class BillDetailFragment extends Fragment {
     //private String showChangeMoney(String cashString, discountString, couponString) {
     private String showChangeMoney(String cashString) {
 
+//        for Cash
         int cashInt = 0;
         String result = "";
 
@@ -354,6 +357,7 @@ public class BillDetailFragment extends Fragment {
             cashInt = Integer.parseInt(cashString);
         }
 
+//        for Coupon
         int answer = total - cashInt;
 
         if (answer <= 0) {
@@ -375,7 +379,12 @@ public class BillDetailFragment extends Fragment {
             moneyInt = Integer.parseInt(moneyString);
         }
 
-        int answerInt = moneyInt - total;
+        String couponString = couponEditText.getText().toString().trim();
+        if (couponString.isEmpty()) {
+            couponString = "0";
+        }
+
+        int answerInt = moneyInt + Integer.parseInt(couponString) - total;
 
         if (answerInt <= 0) {
             answerInt = 0;
