@@ -1,7 +1,10 @@
 package njoize.dai_ka.com.demotestprint;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -69,8 +72,28 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
 //        Create RecyclerView
         createRecyclerView();
 
+//        Demo ReadSQLite
+        demoReadSQLite();
+
 
     } // Main Medthod
+
+    private void demoReadSQLite() {
+        SQLiteDatabase sqLiteDatabase = getActivity().openOrCreateDatabase(MasterOpenHelper.database_name,
+                Context.MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM testTABLE", null);
+        cursor.moveToFirst();
+
+        String name, surname, address, tel;
+
+        for (int i = 0; i < cursor.getCount(); i += 1) {
+            name = cursor.getString(1);
+            surname = cursor.getString(2);
+            Log.d("22AprilV1", "name ==> " + name + " surname ==> " + surname);
+            cursor.moveToNext();
+        }
+
+    }
 
     private void createToolbar() {
         Toolbar toolbar = getView().findViewById(R.id.toolbarMemberList);

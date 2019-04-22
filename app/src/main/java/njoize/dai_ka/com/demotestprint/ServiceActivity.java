@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -181,7 +182,43 @@ public class ServiceActivity extends AppCompatActivity {
                 }
             }).show();
 
-        }
+        } else {
+
+            try {
+
+                MyConstant myConstant = new MyConstant();
+                GetAllData getAllData = new GetAllData(ServiceActivity.this);
+                getAllData.execute(myConstant.getUrlGetAllMember());
+                String jsonString = getAllData.get();
+                Log.d("22AprilV1", jsonString);
+                String name, surname, address, tel;
+
+                MasterManager masterManager = new MasterManager(ServiceActivity.this);
+                JSONArray jsonArray = new JSONArray(jsonString);
+
+                SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MasterOpenHelper.database_name, MODE_PRIVATE, null);
+                sqLiteDatabase.delete("testTABLE", null, null);
+
+                for (int i = 0; i < jsonArray.length(); i += 1) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    name = jsonObject.getString("name");
+                    surname = jsonObject.getString("sname");
+                    address = jsonObject.getString("addr");
+                    tel = jsonObject.getString("tel");
+
+                    masterManager.addDataToMaster(name, surname, address, tel);
+
+                }
+
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        } // if
     }
 
     private void addFragment(Bundle savedInstanceState) {

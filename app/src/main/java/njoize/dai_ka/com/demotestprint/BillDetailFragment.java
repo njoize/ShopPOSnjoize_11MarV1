@@ -171,10 +171,10 @@ public class BillDetailFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                getActivity().finish();
-                Intent intent = new Intent(getActivity(), ServiceActivity.class);
                 getActivity().finish();
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), ServiceActivity.class);
+//                getActivity().finish();
+//                startActivity(intent);
             }
         });
     }
