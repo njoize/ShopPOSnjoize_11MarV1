@@ -26,15 +26,17 @@ public class MemberDetailFragment extends Fragment {
 
     private String idString;
     private MyConstant myConstant = new MyConstant();
+    private boolean memberStatus;
 
     public MemberDetailFragment() {
         // Required empty public constructor
     }
 
-    public static MemberDetailFragment memberDetailInstance(String idString) {
+    public static MemberDetailFragment memberDetailInstance(String idString, boolean status) {
         MemberDetailFragment memberDetailFragment = new MemberDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", idString);
+        bundle.putBoolean("Status", status);
         memberDetailFragment.setArguments(bundle);
         return memberDetailFragment;
     }
@@ -76,36 +78,49 @@ public class MemberDetailFragment extends Fragment {
     }*/
 
     private void selectMemberController() {
+
+        memberStatus = getArguments().getBoolean("Status", false);
+
         Button button = getView().findViewById(R.id.btnMember);
-/*//        if () {
-            button.setVisibility(View.GONE);
-//        }*/
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
+        if (memberStatus) {
 
-                intent.putExtra("Status", true);
-                intent.putExtra("mid", idString);
-                Log.d("28FebV1", "mid adapter ==> " + idString);
+            Log.d("22AprilV1", "memberStatus Invisible");
+            button.setVisibility(View.INVISIBLE);
 
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("BillDetail", Context.MODE_PRIVATE);
+        } else {
 
-                intent.putExtra("idBill", sharedPreferences.getString("idBill", ""));
-                intent.putExtra("Time", sharedPreferences.getString("Time", ""));
-                intent.putExtra("cnum", sharedPreferences.getString("cnum", ""));
-                intent.putExtra("type", sharedPreferences.getString("type", ""));
-                intent.putExtra("name", sharedPreferences.getString("name", ""));
-                intent.putExtra("Zone", sharedPreferences.getString("Zone", ""));
-                intent.putExtra("Desk", sharedPreferences.getString("Desk", ""));
-                intent.putExtra("tid", sharedPreferences.getString("tid", ""));
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                startActivity(intent);
-                getActivity().finish();
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
 
-            }
-        });
+                    intent.putExtra("Status", true);
+                    intent.putExtra("mid", idString);
+                    Log.d("28FebV1", "mid adapter ==> " + idString);
+
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("BillDetail", Context.MODE_PRIVATE);
+
+                    intent.putExtra("idBill", sharedPreferences.getString("idBill", ""));
+                    intent.putExtra("Time", sharedPreferences.getString("Time", ""));
+                    intent.putExtra("cnum", sharedPreferences.getString("cnum", ""));
+                    intent.putExtra("type", sharedPreferences.getString("type", ""));
+                    intent.putExtra("name", sharedPreferences.getString("name", ""));
+                    intent.putExtra("Zone", sharedPreferences.getString("Zone", ""));
+                    intent.putExtra("Desk", sharedPreferences.getString("Desk", ""));
+                    intent.putExtra("tid", sharedPreferences.getString("tid", ""));
+
+                    startActivity(intent);
+                    getActivity().finish();
+
+                }
+            });
+
+        }
+
+
+
     }
 
     private void createDetail() {

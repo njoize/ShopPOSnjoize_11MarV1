@@ -34,7 +34,7 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
     private SearchView searchView;
     private MemberListViewAdapter memberListViewAdapter;
     private ArrayList<String> idStringArrayList;
-    private boolean statusFrom = true;
+    private boolean statusFrom = true; // true ==> From TabHost Member, false ==> From Bill Select Member Button
 
 
     public MemberFragment() {
@@ -55,7 +55,7 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
         super.onActivityCreated(savedInstanceState);
 
         statusFrom = getArguments().getBoolean("Status", true);
-        Log.d("28FebV1", "Receive Status ==> " + statusFrom);
+        Log.d("22AprilV1", "Receive Status ==> " + statusFrom);
 
         myConstant = new MyConstant();
         nameMemberStringArrayList = new ArrayList<>();

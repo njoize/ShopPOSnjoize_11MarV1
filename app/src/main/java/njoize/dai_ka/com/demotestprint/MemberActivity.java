@@ -20,25 +20,10 @@ public class MemberActivity extends AppCompatActivity {
         Log.d("20FebV2", "id ==> " + idString);
         Log.d("20FebV2", "Status ==> " + statusABoolean);
 
-        if (statusABoolean) {
-
-            Log.d("28FebV1", "You Click Text on MemberActivity");
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .add(R.id.contentMemberFragment, MemberSelectFragment.memberSelectInstant(idString))
-//                    .commit();
-
-
-
-
-        } else {
-
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.contentMemberFragment, MemberDetailFragment.memberDetailInstance(idString))
-                    .commit();
-
-        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.contentMemberFragment, MemberDetailFragment.memberDetailInstance(idString, statusABoolean))
+                .commit();
 
     }
 }

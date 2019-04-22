@@ -19,7 +19,7 @@ public class MemberDetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.contentMemberDetailFragment, MemberDetailFragment.memberDetailInstance(idString)).commit();
+                    .add(R.id.contentMemberDetailFragment, MemberDetailFragment.memberDetailInstance(idString, true)).commit();
         }
     }
 }
