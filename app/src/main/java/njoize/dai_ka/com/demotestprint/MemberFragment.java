@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,10 +43,11 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
     }
 
 //    status ==> true (from Packer), ==> false (Select Button)
-    public static MemberFragment memberInstance(boolean status) {
+    public static MemberFragment memberInstance(boolean status, ArrayList<String> stringArrayList) {
         MemberFragment memberFragment = new MemberFragment();
         Bundle bundle = new Bundle();
         bundle.putBoolean("Status", status);
+        bundle.putStringArrayList("KeyArrayList", stringArrayList);
         memberFragment.setArguments(bundle);
         return memberFragment;
     }
@@ -61,11 +63,60 @@ public class MemberFragment extends Fragment implements SearchView.OnQueryTextLi
         nameMemberStringArrayList = new ArrayList<>();
         idStringArrayList = new ArrayList<>();
 
+//        Create Toolbar
+        createToolbar();
+
 //        Create RecyclerView
         createRecyclerView();
 
 
     } // Main Medthod
+
+    private void createToolbar() {
+        Toolbar toolbar = getView().findViewById(R.id.toolbarMemberList);
+
+        if (!statusFrom) {
+
+            toolbar.setVisibility(View.VISIBLE);
+            ((ShowMemberListActivity) getActivity()).setSupportActionBar(toolbar);
+            ((ShowMemberListActivity) getActivity()).getSupportActionBar().setTitle("Member");
+            ((ShowMemberListActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+            ((ShowMemberListActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            final ArrayList<String> stringArrayList = getArguments().getStringArrayList("KeyArrayList");
+            String[] strings = new String[7];
+            for (int i = 0; i < strings.length; i += 1) {
+                strings[i] = stringArrayList.get(i);
+            }
+
+            final String tidString = stringArrayList.get(7);
+            String statusString = stringArrayList.get(8);
+            final boolean statusBool = Boolean.parseBoolean(statusString);
+            final String mid = stringArrayList.get(9);
+
+
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+
+                    MyConstant myConstant = new MyConstant();
+                    String[] columnStrings1 = myConstant.getDetailStrings();
+                    for (int i = 0; i < columnStrings1.length; i += 1) {
+                        intent.putExtra(columnStrings1[i], stringArrayList.get(i));
+                    }
+                    intent.putExtra("tid", tidString);
+                    intent.putExtra("Status", statusBool);
+                    intent.putExtra("mid", mid);
+
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            });
+        }
+
+    }
 
     private void createRecyclerView() {
         try {

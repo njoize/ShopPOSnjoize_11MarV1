@@ -49,6 +49,7 @@ public class BillDetailFragment extends Fragment {
     private int total, myTotal, discount, discountp;
 
     private ArrayList<String> nameStringArrayList, numStringArrayList, priceStringArrayList;
+    private ArrayList<String> stringArrayList = new ArrayList<>();
 
 
     private String idBillString, timeString, cnumString, typeString, nameString, zoneString, deskString;
@@ -74,7 +75,7 @@ public class BillDetailFragment extends Fragment {
                                                         String deskString,
                                                         String tidString,
                                                         boolean status,
-                                                        String midString) {
+                                                        String midString, ArrayList<String> stringArrayList) {
 
         BillDetailFragment billDetailFragment = new BillDetailFragment();
         Bundle bundle = new Bundle();
@@ -88,6 +89,7 @@ public class BillDetailFragment extends Fragment {
         bundle.putString("tid", tidString);
         bundle.putBoolean("Status", status);
         bundle.putString("mid", midString);
+        bundle.putStringArrayList("KeyArrayList", stringArrayList);
         billDetailFragment.setArguments(bundle);
         return billDetailFragment;
     }
@@ -96,6 +98,8 @@ public class BillDetailFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        stringArrayList = getArguments().getStringArrayList("KeyArrayList");
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy
                 .Builder().permitAll().build();
@@ -142,6 +146,7 @@ public class BillDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ShowMemberListActivity.class);
+                intent.putStringArrayListExtra("KeyArrayList", stringArrayList);
                 startActivity(intent);
                 getActivity().finish();
 

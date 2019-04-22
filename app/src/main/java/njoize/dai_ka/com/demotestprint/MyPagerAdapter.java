@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+
 public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
     private FragmentManager fragmentManager;
@@ -29,7 +31,8 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
                 FoodFragment foodFragment = FoodFragment.foodInstante("", true,"","", "");
                 return foodFragment;
             case 3:
-                MemberFragment memberFragment = MemberFragment.memberInstance(true);
+                ArrayList<String> stringArrayList = new ArrayList<>();
+                MemberFragment memberFragment = MemberFragment.memberInstance(true, stringArrayList);
                 return memberFragment;
 //                NotificationFragment notificationFragment = new NotificationFragment();
 //                return notificationFragment;

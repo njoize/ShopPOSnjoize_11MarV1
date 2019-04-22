@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class DetailActivity extends AppCompatActivity {
 
     private boolean statusABoolean; // true ==> From MemberDetail, false ==> DetailActivity
@@ -13,6 +15,8 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        Log.d("22AprilV1", "DetailActivity Work");
 
 //        Get Value
         MyConstant myConstant = new MyConstant();
@@ -32,6 +36,18 @@ public class DetailActivity extends AppCompatActivity {
 
 
         if (savedInstanceState == null) {
+
+            ArrayList<String> stringArrayList = new ArrayList<>();
+
+            for (int i = 0; i < valueStrings1.length; i += 1) {
+                stringArrayList.add(valueStrings1[i]);
+            }
+
+            stringArrayList.add(tidString);
+            stringArrayList.add(Boolean.toString(statusABoolean));
+            stringArrayList.add(mid);
+
+
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.contentDetailFragment, BillDetailFragment.billDetailInstance(
@@ -44,7 +60,7 @@ public class DetailActivity extends AppCompatActivity {
                             valueStrings1[6],
                             tidString,
                             statusABoolean,
-                            mid)).commit();
+                            mid, stringArrayList)).commit();
         }
 
 
