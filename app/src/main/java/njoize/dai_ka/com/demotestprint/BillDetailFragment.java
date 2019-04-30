@@ -59,7 +59,7 @@ public class BillDetailFragment extends Fragment {
     private String tag = "2decV2";
     private MyConstant myConstant = new MyConstant();
 
-    private EditText couponEditText;
+    private EditText discountEditText, couponEditText, cashEditText, creditEditText;
 
 
     public BillDetailFragment() {
@@ -221,10 +221,10 @@ public class BillDetailFragment extends Fragment {
                         final CheckBox creditCheckBox = view.findViewById(R.id.chbCredit);
                         final CheckBox couponCheckBox = view.findViewById(R.id.chbCoupon);
 
-                        final EditText cashEditText = view.findViewById(R.id.edtMoneyCash);
+                        cashEditText = view.findViewById(R.id.edtMoneyCash);
                         final String moneyCashString = cashEditText.getText().toString().trim();
 
-                        final EditText creditEditText = view.findViewById(R.id.edtCredit);
+                        creditEditText = view.findViewById(R.id.edtCredit);
                         final String moneyCreditString = creditEditText.getText().toString().trim();
 
 
@@ -232,8 +232,8 @@ public class BillDetailFragment extends Fragment {
                         final String moneyCouponString = couponEditText.getText().toString().trim();
 
 
-                        EditText discountEditText = view.findViewById(R.id.edtDiscount);
-                        //final String discountString = discountEditText.getText().toString().trim();
+                        discountEditText = view.findViewById(R.id.edtDiscount);
+                        final String moneyDiscountString = discountEditText.getText().toString().trim();
                         discountEditText.setText(Integer.toString(discount));
 
 
@@ -246,13 +246,14 @@ public class BillDetailFragment extends Fragment {
 
                             @Override
                             public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                                คำนวนเงินทอน
+                                titleTextView.setText(ShowChangeDiscount(s.toString()));
+//                                คำนวนบัตรเครดิต
+                                creditEditText.setText(showCreditDiscount(s.toString()));
                             }
 
                             @Override
                             public void afterTextChanged(Editable s) {
-                                //String ediscount = s.toString();
-
-                                //Log.d("15MarV2", "edtDiscount ==> " + ediscount);
 
                             }
                         });
@@ -266,9 +267,12 @@ public class BillDetailFragment extends Fragment {
 
                             @Override
                             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                titleTextView.setText(alertCalculate(s.toString()));
-                                //creditEditText.setText(showChangeMoney(s.toString(), ediscount,  ));
-                                creditEditText.setText(showChangeMoney(s.toString()));
+//                                คำนวนเงินทอน
+                                titleTextView.setText(ShowChangeCash(s.toString()));
+//                                creditEditText.setText(showChangeMoney(s.toString()));
+
+//                                คำนวนบัตรเครดิต
+                                creditEditText.setText(showCreditCash(s.toString()));
                             }
 
                             @Override
@@ -306,7 +310,10 @@ public class BillDetailFragment extends Fragment {
 
                             @Override
                             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+//                                คำนวนเงินทอน
+                                titleTextView.setText(ShowChangeCoupon(s.toString()));
+//                                คำนวนบัตรเครดิต
+                                creditEditText.setText(showCreditCoupon(s.toString()));
                             }
 
                             @Override
@@ -321,7 +328,7 @@ public class BillDetailFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 uploadToServer(cashCheckBox.isChecked(), creditCheckBox.isChecked(), couponCheckBox.isChecked(),
-                                        moneyCashString, moneyCreditString, moneyCouponString, discountString);
+                                        moneyCashString, moneyCreditString, moneyCouponString, moneyDiscountString);
 
 
                             }
@@ -349,7 +356,6 @@ public class BillDetailFragment extends Fragment {
 
     }
 
-    //private String showChangeMoney(String cashString, discountString, couponString) {
     private String showChangeMoney(String cashString) {
 
 //        for Cash
@@ -374,14 +380,15 @@ public class BillDetailFragment extends Fragment {
         return result;
     }
 
-    private String alertCalculate(String moneyString) {
 
-        int moneyInt = 0;
+    private String ShowChangeDiscount(String discountString) {
 
-        if (moneyString.length() == 0) {
-            moneyInt = 0;
+        int discountInt = 0;
+
+        if (discountString.length() == 0) {
+            discountInt = 0;
         } else {
-            moneyInt = Integer.parseInt(moneyString);
+            discountInt = Integer.parseInt(discountString);
         }
 
         String couponString = couponEditText.getText().toString().trim();
@@ -389,11 +396,206 @@ public class BillDetailFragment extends Fragment {
             couponString = "0";
         }
 
-        int answerInt = moneyInt + Integer.parseInt(couponString) - total;
+        String cashString = cashEditText.getText().toString().trim();
+        if (cashString.isEmpty()) {
+            cashString = "0";
+        }
+            int answerInt = discountInt + Integer.parseInt(couponString) + Integer.parseInt(cashString) - total;
 
         if (answerInt <= 0) {
             answerInt = 0;
-            myTotal = total - moneyInt;
+        }
+        if (answerInt > Integer.parseInt(cashString)) {
+            answerInt = Integer.parseInt(cashString);
+        }
+
+        return "เงินทอน : " + Integer.toString(answerInt) + " บาท";
+
+    }
+
+    private String showCreditDiscount(String discountString) {
+
+//        for Discount
+        int discountInt = 0;
+        String result = "";
+
+        if (discountString.length() == 0) {
+            discountInt = 0;
+        } else {
+            discountInt = Integer.parseInt(discountString);
+        }
+
+//        for Cash
+        int cashInt = 0;
+
+        String cashString = cashEditText.getText().toString().trim();
+
+        if (cashString.length() == 0) {
+            cashInt = 0;
+        } else {
+            cashInt = Integer.parseInt(cashString);
+        }
+
+        if (cashInt <= 0) {
+
+            String couponString = couponEditText.getText().toString().trim();
+            if (couponString.isEmpty()) {
+                couponString = "0";
+            }
+
+            int answer = total - discountInt - Integer.parseInt(couponString);
+
+            if (answer <= 0) {
+                answer = 0;
+            }
+            result = Integer.toString(answer);
+        }
+
+        return result;
+
+    }
+
+
+
+    private String ShowChangeCoupon(String couponString) {
+
+        int couponInt = 0;
+
+        if (couponString.length() == 0) {
+            couponInt = 0;
+        } else {
+            couponInt = Integer.parseInt(couponString);
+        }
+
+        String discountString = discountEditText.getText().toString().trim();
+        if (discountString.isEmpty()) {
+            discountString = "0";
+        }
+
+        String cashString = cashEditText.getText().toString().trim();
+        if (cashString.isEmpty()) {
+            cashString = "0";
+        }
+        int answerInt = couponInt + Integer.parseInt(discountString) + Integer.parseInt(cashString) - total;
+
+        if (answerInt <= 0) {
+            answerInt = 0;
+        }
+        if (answerInt > Integer.parseInt(cashString)) {
+            answerInt = Integer.parseInt(cashString);
+        }
+
+        return "เงินทอน : " + Integer.toString(answerInt) + " บาท";
+
+    }
+
+    private String showCreditCoupon(String couponString) {
+
+//        for Coupon
+        int couponInt = 0;
+        String result = "";
+
+        if (couponString.length() == 0) {
+            couponInt = 0;
+        } else {
+            couponInt = Integer.parseInt(couponString);
+        }
+
+//        for Cash
+        int cashInt = 0;
+
+        String cashString = cashEditText.getText().toString().trim();
+
+        if (cashString.length() == 0) {
+            cashInt = 0;
+        } else {
+            cashInt = Integer.parseInt(cashString);
+        }
+
+        if (cashInt <= 0) {
+
+            String discountString = discountEditText.getText().toString().trim();
+            if (discountString.isEmpty()) {
+                discountString = "0";
+            }
+
+            int answer = total - couponInt - Integer.parseInt(discountString);
+
+            if (answer <= 0) {
+                answer = 0;
+            }
+            result = Integer.toString(answer);
+        }
+
+        return result;
+
+    }
+
+
+    private String showCreditCash(String cashString) {
+
+//        for Cash
+        int cashInt = 0;
+        String result = "";
+
+        if (cashString.length() == 0) {
+            cashInt = 0;
+        } else {
+            cashInt = Integer.parseInt(cashString);
+        }
+
+        if (cashInt <= 0) {
+
+            String discountString = discountEditText.getText().toString().trim();
+            if (discountString.isEmpty()) {
+                discountString = "0";
+            }
+
+            String couponString = couponEditText.getText().toString().trim();
+            if (couponString.isEmpty()) {
+                couponString = "0";
+            }
+
+            int answer = total - Integer.parseInt(discountString) - Integer.parseInt(couponString);
+
+            if (answer <= 0) {
+                answer = 0;
+            }
+            result = Integer.toString(answer);
+        }
+
+        return result;
+
+    }
+
+    private String ShowChangeCash(String cashString) {
+
+        int cashInt = 0;
+
+        if (cashString.length() == 0) {
+            cashInt = 0;
+        } else {
+            cashInt = Integer.parseInt(cashString);
+        }
+
+        String discountString = discountEditText.getText().toString().trim();
+        if (discountString.isEmpty()) {
+            discountString = "0";
+        }
+
+        String couponString = couponEditText.getText().toString().trim();
+        if (couponString.isEmpty()) {
+            couponString = "0";
+        }
+
+        int answerInt = cashInt + Integer.parseInt(discountString) + Integer.parseInt(couponString) - total;
+
+        if (answerInt <= 0) {
+            answerInt = 0;
+            myTotal = total - cashInt;
+        }
+        if (answerInt > cashInt) {
+            answerInt = cashInt;
         }
 
         return "เงินทอน : " + Integer.toString(answerInt) + " บาท";
