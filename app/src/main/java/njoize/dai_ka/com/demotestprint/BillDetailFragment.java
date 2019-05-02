@@ -126,7 +126,6 @@ public class BillDetailFragment extends Fragment {
 //        SelectMember Controller
         selectMemberController();
 
-
     } // Main Method
 
     @Override
@@ -192,6 +191,7 @@ public class BillDetailFragment extends Fragment {
 
                         Log.d("11MarV1", "You Click กำลังเชื่อมต่อปรินเตอร์");
 
+
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                         alertDialogBuilder.setTitle("Payment Method");
 
@@ -205,7 +205,6 @@ public class BillDetailFragment extends Fragment {
                                 dialog.dismiss();
                             }
                         });
-
 
                         final TextView titleTextView = view.findViewById(R.id.txtTitle);
                         TextView paymentTextView = view.findViewById(R.id.txtPayment);
@@ -323,6 +322,7 @@ public class BillDetailFragment extends Fragment {
                         });
 
 
+
                         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -334,6 +334,8 @@ public class BillDetailFragment extends Fragment {
                             }
                         });
                         alertDialogBuilder.show();
+
+
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -772,10 +774,8 @@ public class BillDetailFragment extends Fragment {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
-//                            ShowAlert Payment
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                            alertDialogBuilder.setTitle("Choose Payment");
+                            alertDialogBuilder.setTitle("Payment Method");
 
                             LayoutInflater layoutInflater = getActivity().getLayoutInflater();
                             final View view = layoutInflater.inflate(R.layout.alertdialog_payment, null);
@@ -787,29 +787,129 @@ public class BillDetailFragment extends Fragment {
                                     dialog.dismiss();
                                 }
                             });
+
+                            final TextView titleTextView = view.findViewById(R.id.txtTitle);
+                            TextView paymentTextView = view.findViewById(R.id.txtPayment);
+                            paymentTextView.setText("ยอดชำระ : " + Integer.toString(total) + " บาท");
+
+
+                            final int myTotal = total;
+                            final String prefix = "เงินทอน : ";
+
+//                    titleTextView.setText(prefix + alertCalculate(total) + " บาท");
+
+                            final CheckBox cashCheckBox = view.findViewById(R.id.chbCash);
+                            final CheckBox creditCheckBox = view.findViewById(R.id.chbCredit);
+                            final CheckBox couponCheckBox = view.findViewById(R.id.chbCoupon);
+
+                            cashEditText = view.findViewById(R.id.edtMoneyCash);
+                            final String moneyCashString = cashEditText.getText().toString().trim();
+
+                            creditEditText = view.findViewById(R.id.edtCredit);
+                            final String moneyCreditString = creditEditText.getText().toString().trim();
+
+
+                            couponEditText = view.findViewById(R.id.edtCoupon);
+                            final String moneyCouponString = couponEditText.getText().toString().trim();
+
+
+                            discountEditText = view.findViewById(R.id.edtDiscount);
+                            final String moneyDiscountString = discountEditText.getText().toString().trim();
+                            discountEditText.setText(Integer.toString(discount));
+
+
+//                        For Discount
+                            discountEditText.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                                คำนวนเงินทอน
+                                    titleTextView.setText(ShowChangeDiscount(s.toString()));
+//                                คำนวนบัตรเครดิต
+                                    creditEditText.setText(showCreditDiscount(s.toString()));
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable s) {
+
+                                }
+                            });
+
+//                        For Cash
+                            cashEditText.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                                คำนวนเงินทอน
+                                    titleTextView.setText(ShowChangeCash(s.toString()));
+//                                creditEditText.setText(showChangeMoney(s.toString()));
+
+//                                คำนวนบัตรเครดิต
+                                    creditEditText.setText(showCreditCash(s.toString()));
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable s) {
+
+                                }
+                            });
+
+
+//                        For Credit
+                            creditEditText.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable s) {
+
+                                }
+                            });
+
+
+//                        For Coupon
+                            couponEditText.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                                คำนวนเงินทอน
+                                    titleTextView.setText(ShowChangeCoupon(s.toString()));
+//                                คำนวนบัตรเครดิต
+                                    creditEditText.setText(showCreditCoupon(s.toString()));
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable s) {
+
+                                }
+                            });
+
                             alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
-                                    CheckBox cashCheckBox = view.findViewById(R.id.chbCash);
-                                    CheckBox creditCheckBox = view.findViewById(R.id.chbCredit);
-                                    CheckBox couponCheckBox = view.findViewById(R.id.chbCoupon);
-
-                                    EditText cashEditText = view.findViewById(R.id.edtMoneyCash);
-                                    String moneyCashString = cashEditText.getText().toString().trim();
-
-                                    EditText creditEditText = view.findViewById(R.id.edtCredit);
-                                    String moneyCreditString = creditEditText.getText().toString().trim();
-
-                                    EditText couponEditText = view.findViewById(R.id.edtCoupon);
-                                    String moneyCouponString = couponEditText.getText().toString().trim();
-
-
-                                    EditText discountEditText = view.findViewById(R.id.edtDiscount);
-                                    String discountString = discountEditText.getText().toString().trim();
-
                                     uploadToServer(cashCheckBox.isChecked(), creditCheckBox.isChecked(), couponCheckBox.isChecked(),
-                                            moneyCashString, moneyCreditString, moneyCouponString, discountString);
+                                            moneyCashString, moneyCreditString, moneyCouponString, moneyDiscountString);
+
 
 
                                     if (communicationABoolean) {
@@ -975,6 +1075,8 @@ public class BillDetailFragment extends Fragment {
                                 }
                             });
                             alertDialogBuilder.show();
+
+
 
 
                         } // onClick

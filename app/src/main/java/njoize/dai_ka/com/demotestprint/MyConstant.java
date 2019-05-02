@@ -18,8 +18,8 @@ public class MyConstant {
     private int[] allowPayment = new int[]{1,3,4,6};
     private String urlGetFoodWhereIdAndUser = "http://www.brainwakecafe.com/android/getAllProduct.php";
 
-    private int[] iconDrawerInts = new int[]{R.drawable.ic_action_one, R.drawable.ic_action_one, R.drawable.ic_action_exit, R.drawable.ic_action_one};
-    private String[] titleDrawerStrings = new String[]{"Menu1", "Menu2", "Sign Out", "Test Print"};
+    private int[] iconDrawerInts = new int[]{R.drawable.ic_action_cashdrawer, R.drawable.ic_action_one, R.drawable.ic_action_one, R.drawable.ic_action_exit};
+    private String[] titleDrawerStrings = new String[]{"เปิดลิ้นชัก", "ทดสอบเครื่องพิมพ์", "เชื่อมต่อฐานข้อมูลออฟไลน์", "ลงชื่อออกจากระบบ"};
 
     private String urlGetCategoryString = "http://brainwakecafe.com/android/getAllProductCat.php";
 

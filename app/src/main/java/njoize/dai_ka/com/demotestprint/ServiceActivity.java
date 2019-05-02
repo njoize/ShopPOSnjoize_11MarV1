@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -41,12 +42,19 @@ public class ServiceActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private boolean aBoolean = true; //true ==> Check Internet
     private WifiCommunication wifiCommunication;
+    private boolean communicationABoolean = true; // true ==> Can Print, false ==> Disable Print
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
+
+//        Huawei Policy
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy
+                .Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
 
 //        Check Internet
         checkInternet();
@@ -66,8 +74,58 @@ public class ServiceActivity extends AppCompatActivity {
 //        Create DrawerMenu
         createDrawerMenu();
 
+//        Open CashDrawer
+//        openCashDrawer();
+
 
     } // Main Method
+
+
+    private void openCashDrawer() {
+        MyConstant myConstant = new MyConstant();
+        wifiCommunication = new WifiCommunication(ocHandler);
+        wifiCommunication.initSocket(myConstant.getIpAddressPrinter(), myConstant.getPortPrinter());
+    }
+
+    private final Handler ocHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+
+                case WifiCommunication.WFPRINTER_CONNECTED:
+
+
+
+//                    if (communicationABoolean) {
+                        wifiCommunication.sndByte(Command.openCashDrawer);
+                        wifiCommunication.close();
+
+//                        communicationABoolean = false;
+
+
+
+//                    } else {
+
+//                        Log.d("1MayV1", "Communication Disible");
+////                            Toast.makeText(getActivity(), "Disable Printer Please Press Click Again", Toast.LENGTH_SHORT).show();
+//                    }
+
+                    Log.d("1MayV1", "Connected Printer");
+
+                    break;
+                case WifiCommunication.WFPRINTER_DISCONNECTED:
+
+                    Log.d("1MayV1", "Disconnected Printer");
+                    break;
+                default:
+                    break;
+
+            } // switch
+        } // handleMessage
+    };
 
     private void createDrawerMenu() {
         RecyclerView recyclerView = findViewById(R.id.recyclerDrawerMenu);
@@ -105,10 +163,58 @@ public class ServiceActivity extends AppCompatActivity {
 
         switch (positions) {
             case 0:
+
+                Log.d("1MayV1", "case 0: Open CashDrawer");
+
+//                Open CashDrawer
+                openCashDrawer();
+
                 break;
+
             case 1:
+
+//                Test Print
+                startActivity(new Intent(ServiceActivity.this, TestPrintActivity.class));
+
                 break;
+
             case 2:
+
+//                Offline Connect
+                try {
+
+                    MyConstant myConstant = new MyConstant();
+                    GetAllData getAllData = new GetAllData(ServiceActivity.this);
+                    getAllData.execute(myConstant.getUrlGetAllMember());
+                    String jsonString = getAllData.get();
+                    Log.d("22AprilV1", jsonString);
+                    String name, surname, address, tel;
+
+                    MasterManager masterManager = new MasterManager(ServiceActivity.this);
+                    JSONArray jsonArray = new JSONArray(jsonString);
+
+                    SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MasterOpenHelper.database_name, MODE_PRIVATE, null);
+                    sqLiteDatabase.delete("testTABLE", null, null);
+
+                    for (int i = 0; i < jsonArray.length(); i += 1) {
+
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        name = jsonObject.getString("name");
+                        surname = jsonObject.getString("sname");
+                        address = jsonObject.getString("addr");
+                        tel = jsonObject.getString("tel");
+
+                        masterManager.addDataToMaster(name, surname, address, tel);
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                break;
+
+            case 3:
 
 //                Sign Out
                 MyConstant myConstant = new MyConstant();
@@ -121,13 +227,7 @@ public class ServiceActivity extends AppCompatActivity {
                 finish();
 
                 break;
-            case 3:
 
-//                Test Print
-                startActivity(new Intent(ServiceActivity.this, TestPrintActivity.class));
-
-
-                break;
         }
 
 
@@ -162,6 +262,7 @@ public class ServiceActivity extends AppCompatActivity {
         }
     };
 
+
     private void checkInternet() {
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -182,7 +283,8 @@ public class ServiceActivity extends AppCompatActivity {
                 }
             }).show();
 
-        } else {
+//Offline Connected
+/*        } else {
 
             try {
 
@@ -215,7 +317,7 @@ public class ServiceActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+            }*/
 
 
         } // if
