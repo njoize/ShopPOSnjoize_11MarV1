@@ -3,6 +3,9 @@ package njoize.dai_ka.com.demotestprint;
 public class MyConstant {
 
     //    Explicit
+
+    private String urlGetZoneWhereBranch = "http://www.brainwakecafe.com/android/getZoneWhereBranch.php";
+
     private String urlGetOrderWhereTID = "http://www.brainwakecafe.com/android/getOrderWhereTID.php";
 
     private String urlGetOrderWhereUser = "http://www.brainwakecafe.com/android/getOrderWhereUser.php";
@@ -67,8 +70,13 @@ public class MyConstant {
 
     private String urlReadAllDesk = "http://www.brainwakecafe.com/android/getAllDesk.php";
 
+
+
 //    Getter
 
+    public String getUrlGetZoneWhereBranch() {
+        return urlGetZoneWhereBranch;
+    }
 
     public String getNameShopToolbar() {
         return nameShopToolbar;

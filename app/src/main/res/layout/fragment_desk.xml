@@ -6,9 +6,28 @@
     tools:context=".DeskFragment">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayoutDesk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:background="@color/colorBG"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"/>
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
 
         <!--Lin#1-->
         <LinearLayout
@@ -17,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
 
             <!--Test Text-->
             <!--<TextView
@@ -639,5 +659,7 @@
 
     </ScrollView>
 
+
+    </LinearLayout>
 
 </RelativeLayout>

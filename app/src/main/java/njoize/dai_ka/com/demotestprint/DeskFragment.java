@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,6 +34,12 @@ import java.util.ArrayList;
 public class DeskFragment extends Fragment implements View.OnClickListener {
 
     //    Explicit
+    private MyConstant myConstant = new MyConstant();
+    private int tabAnInt = 0;
+    private String zoneIDString, branchIDString;
+    private ArrayList<String> zoneNameStringArrayList = new ArrayList<>();
+    private ArrayList<String> zoneIDStringArrayList = new ArrayList<>();
+
     private TextView[][] textViews = new TextView[10][10];
     private int[][] ints = new int[][]{
             {R.id.imv0_0, R.id.imv0_1, R.id.imv0_2, R.id.imv0_3, R.id.imv0_4, R.id.imv0_5, R.id.imv0_6, R.id.imv0_7, R.id.imv0_8, R.id.imv0_9},
@@ -66,6 +73,9 @@ public class DeskFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        Create TabLayout
+        createTabLayout();
+
 //        Initial View
         initialView();
 
@@ -81,6 +91,69 @@ public class DeskFragment extends Fragment implements View.OnClickListener {
 //        buildDesk(textViews[6][1],3, "3 CT", "12:00", "5");
 
     } // Main Method
+
+    private void createTabLayout() {
+        TabLayout tabLayout = getView().findViewById(R.id.tabLayoutDesk);
+
+        try {
+            branchIDString = "1";
+
+            GetMemberWhereID getMemberWhereID = new GetMemberWhereID(getActivity());
+            getMemberWhereID.execute(branchIDString, myConstant.getUrlGetZoneWhereBranch());
+            String json = getMemberWhereID.get();
+
+            JSONArray jsonArray = new JSONArray(json);
+            for (int i = 0; i < jsonArray.length(); i += 1) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                zoneNameStringArrayList.add(jsonObject.getString("tzname"));
+                zoneIDStringArrayList.add(jsonObject.getString("id"));
+
+            }
+            Log.d("5MayV1", "tzname ==> " + zoneNameStringArrayList.toString());
+
+            zoneIDString = zoneIDStringArrayList.get(tabAnInt);
+
+            for (int i = 0; i < zoneNameStringArrayList.size(); i += 1) {
+                tabLayout.addTab(tabLayout.newTab().setText(zoneNameStringArrayList.get(i)));
+            }
+
+
+//        String[] strings = myConstant.getBillTitleStrings();
+//        for (String s : strings) {
+//            tabLayout.addTab(tabLayout.newTab().setText(s));
+//        }
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+            tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    tabAnInt = tab.getPosition();
+                    Log.d("5MayV1", "tabAnInt ==> " + tabAnInt);
+
+                    zoneIDString = zoneIDStringArrayList.get(tabAnInt);
+                    Log.d("5MayV1", "zoneIDString ==> " + zoneIDString);
+                    // Draw Desk
+                    drawDesk();
+
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("5MayV1", "e ==> " + e);
+        }
+
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -121,6 +194,7 @@ public class DeskFragment extends Fragment implements View.OnClickListener {
 
     private void drawDesk() {
 
+
         String tag = "8decV2";
 
         try {
@@ -134,9 +208,14 @@ public class DeskFragment extends Fragment implements View.OnClickListener {
             Log.d("8decV2", "userLogined ==> " + userLogined);
             //---
 
-            GetAllData getAllData = new GetAllData(getActivity());
-            getAllData.execute(myConstant.getUrlReadAllDesk());
-            String jsonString = getAllData.get();
+
+            GetMemberWhereID getMemberWhereID = new GetMemberWhereID(getActivity());
+            getMemberWhereID.execute(zoneIDString, myConstant.getUrlReadAllDesk());
+            String jsonString = getMemberWhereID.get();
+//
+//            GetAllData getAllData = new GetAllData(getActivity());
+//            getAllData.execute(myConstant.getUrlReadAllDesk());
+//            String jsonString = getAllData.get();
             Log.d("8decV2", "jsonString ==> " + jsonString);
 
             JSONArray jsonArray = new JSONArray(jsonString);
